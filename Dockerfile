@@ -1,6 +1,21 @@
+# --- STAGE 1: The Build Stage ---
 FROM composer:2.6 AS builder
 
 WORKDIR /app
+
+RUN apk add --no-cache \
+    libzip-dev \
+    libpng-dev \
+    jpeg-dev \
+    libwebp-dev \
+    libjpeg-turbo-dev \
+    postgresql-dev \
+    imagemagick-dev \
+    git \
+    nginx \
+    libgd-dev
+
+RUN docker-php-ext-install -j$(nproc) gd
 
 COPY composer.json composer.lock ./
 
@@ -10,6 +25,7 @@ COPY . .
 
 RUN composer dump-autoload --optimize --no-dev
 
+# --- STAGE 2: The Final Runtime Stage ---
 FROM php:8.2-fpm-alpine
 
 WORKDIR /app
@@ -23,8 +39,8 @@ RUN apk add --no-cache \
     postgresql-dev \
     git \
     nginx \
-    imagemagick-dev
-
+    imagemagick-dev \
+    libgd-dev
 
 RUN docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
