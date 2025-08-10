@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\Owner\CampaignController;
 use App\Http\Controllers\Api\RewardController;
 use App\Http\Controllers\Api\Shopper\ShopperController;
@@ -28,13 +29,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('owner')->middleware('role:owner')->group(function () {
-
+        Route::get('company/issuers', [CompanyController::class, 'listCompanyIssuers']);
         Route::post('campaigns', [CampaignController::class, 'store']);
         Route::get('campaigns/{campaign}', [CampaignController::class, 'show']);
         Route::post('campaigns/{campaign}/assign-issuer', [CampaignController::class, 'assignIssuer']);
 
     });
-
 
     Route::prefix('shopper')->middleware('role:shopper')->group(function () {
 

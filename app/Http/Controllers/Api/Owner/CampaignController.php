@@ -7,15 +7,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CampaignController extends Controller {
+
     public function index() {
-        $owner = Auth::user();
-        $company = $owner->company()->firstOrFail();
-        $campaigns = $company->campaigns()->with('rewards')->get();
+
+        $user = auth()->user();
+
+        if ($user->isOwner()) {
+            $company = $user->company()->firstOrFail();
+            $campaigns = $company->campaigns()->orderBy('created_at')->get();
+        } elseif ($user->isIssuer()) {
+            $campaigns = $user->issuerForCampaigns()->with(['company'])->get();
+        } else {
+            return response()->json(['message' => 'Unauthorised'], 403);
+        }
+
         return response()->json($campaigns);
     }
+
 
     public function store(Request $request) {
         $request->validate([
@@ -29,7 +39,7 @@ class CampaignController extends Controller {
             'status' => ['required', 'string', 'in:' . implode(',', array_column(CampaignStatus::cases(), 'value'))],
         ]);
 
-        $owner = Auth::user();
+        $owner = auth()->user();
         $owner->company()->where('id', $request->company_id)->firstOrFail();
 
         $campaign = $owner->company->campaigns()->create($request->all());
@@ -38,7 +48,7 @@ class CampaignController extends Controller {
     }
 
     public function show(Campaign $campaign) {
-        $owner = Auth::user();
+        $owner = auth()->user();
         $owner->company()->where('id', $campaign->company_id)->firstOrFail();
 
         return response()->json($campaign->load(['rewards', 'issuers', 'vouchers']));

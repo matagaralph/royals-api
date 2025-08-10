@@ -17,27 +17,42 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ShopperController extends Controller {
     public function myPointsSummary() {
-        $shopperPoints = Auth::user()->shopperPoints()->with('campaign')->get();
+        $user = auth()->user();
+        $shopperPoints = $user->shopperPoints()->with('campaign')->get();
 
+        $totalPoints = $shopperPoints->sum('points');
+        $campaigns = [];
         $claimableRewards = [];
+
         foreach ($shopperPoints as $shopperPoint) {
-            if ($shopperPoint->campaign->status === CampaignStatus::Active) {
-                $rewards = Reward::where('campaign_id', $shopperPoint->campaign_id)
+            $campaign = $shopperPoint->campaign;
+
+            if ($campaign->status === CampaignStatus::Active) {
+                $campaigns[] = [
+                    'name' => $campaign->name,
+                    'end_date' => $campaign->end_date,
+                    'status' => $campaign->status,
+                ];
+
+                $rewards = Reward::where('campaign_id', $campaign->id)
                     ->where('points_required', '<=', $shopperPoint->points)
                     ->get();
+
                 foreach ($rewards as $reward) {
                     $claimableRewards[] = [
-                        'campaign' => $shopperPoint->campaign->name,
-                        'reward' => $reward->title,
+                        'campaign_name' => $campaign->name,
+                        'reward_title' => $reward->title,
                         'points_required' => $reward->points_required,
-                        'your_points' => $shopperPoint->points,
                         'reward_id' => $reward->id,
+                        'your_points' => $shopperPoint->points,
                     ];
                 }
             }
         }
+
         return response()->json([
-            'current_points_by_campaign' => $shopperPoints,
+            'total_points' => $totalPoints,
+            'campaigns' => $campaigns,
             'claimable_rewards' => $claimableRewards,
         ]);
     }
