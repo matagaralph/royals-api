@@ -15,10 +15,12 @@ class ClaimVoucher extends Model {
         'reward_id',
         'code',
         'status',
+        'is_used'
     ];
 
     protected $casts = [
         'status' => ClaimVoucherStatus::class,
+        'is_used' => 'boolean'
     ];
 
     public function user(): BelongsTo {

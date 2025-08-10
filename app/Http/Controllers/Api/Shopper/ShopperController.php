@@ -70,7 +70,7 @@ class ShopperController extends Controller {
             'points_added' => $voucher->points_value,
             'current_campaign_points' => $shopperPoint->points,
             'campaign_name' => $voucher->campaign->name,
-            'scanned_voucher_id' => $voucher->id,
+            'voucher_id' => $voucher->id,
         ]);
     }
 
@@ -107,7 +107,7 @@ class ShopperController extends Controller {
         ]);
 
         return response()->json([
-            'message' => 'Reward claimed successfully! Present this claim code to the issuer: ' . $claimCode,
+            'message' => 'Present this claim code to the issuer ' . $claimCode,
             'claim_voucher_code' => $claimCode,
             'claim_voucher_id' => $claimVoucher->id,
             'reward_details' => $reward,
