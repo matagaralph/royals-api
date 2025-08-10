@@ -24,7 +24,7 @@ class CampaignController extends Controller {
             'description' => ['nullable', 'string'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
-            'min_points_per_voucher' => ['required', 'integer', 'min:1'],
+            'min_points_per_voucher' => ['sometimes', 'integer', 'min:1'],
             'min_spend_for_point' => ['required', 'numeric', 'min:0.01'],
             'status' => ['required', 'string', 'in:' . implode(',', array_column(CampaignStatus::cases(), 'value'))],
         ]);

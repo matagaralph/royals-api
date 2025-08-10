@@ -14,13 +14,13 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('min_points_per_voucher');
+            $table->integer('min_points_per_voucher')->default(1);
             $table->decimal('min_spend_for_point', 8, 2);
             $table->string('status')->default('active');
             $table->timestamps();
         });
     }
-    
+
     public function down(): void {
         Schema::dropIfExists('campaigns');
     }

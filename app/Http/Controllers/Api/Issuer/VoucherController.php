@@ -39,13 +39,22 @@ class VoucherController extends Controller {
             'code' => $code,
             'reference' => $request->reference,
         ]);
+        
+        $businessWhatsapp = config('services.whatsapp.business_number');
+        $message = "Please scan this code: " . $voucher->code;
+        $whatsappUrl = "https://wa.me/{$businessWhatsapp}?text=" . urlencode($message);
+
+        $qrCode = QrCode::format('png')->size(300)->color(0, 0, 0)->generate($whatsappUrl);
+        $base64QrCode = 'data:image/png;base64,' . base64_encode($qrCode);
 
         return response()->json([
             'message' => 'Points voucher generated successfully.',
             'voucher_id' => $voucher->id,
             'voucher_code' => $voucher->code,
             'points_value' => $voucher->points_value,
+            'qr_code_image' => $base64QrCode,
         ], 201);
+
     }
 
     public function getQrCode(Voucher $voucher) {

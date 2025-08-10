@@ -15,7 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckUserRole::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            '/bot-register',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+
     })->create();
