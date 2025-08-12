@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Bot\BotController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\Owner\CampaignController;
 use App\Http\Controllers\Api\RewardController;
@@ -14,8 +15,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/bot-register', [BotController::class, 'register']);
+Route::get('/bot-voucher-reward-by-user', [BotController::class, 'getRewardsByUser']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -26,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/vouchers/generate-points/{campaign}', [VoucherController::class, 'generatePointsVoucher']);
         Route::post('/vouchers/verify-claim', [VoucherController::class, 'verifyClaimVoucher']);
         Route::post('/vouchers/issue-claim', [VoucherController::class, 'issueClaimVoucher']);
-          Route::get('campaigns/{campaign}', [CampaignController::class, 'show']);
+        Route::get('campaigns/{campaign}', [CampaignController::class, 'show']);
     });
 
     Route::prefix('owner')->middleware('role:owner')->group(function () {
