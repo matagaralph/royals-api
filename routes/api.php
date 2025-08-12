@@ -26,12 +26,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/vouchers/generate-points/{campaign}', [VoucherController::class, 'generatePointsVoucher']);
         Route::post('/vouchers/verify-claim', [VoucherController::class, 'verifyClaimVoucher']);
         Route::post('/vouchers/issue-claim', [VoucherController::class, 'issueClaimVoucher']);
+          Route::get('campaigns/{campaign}', [CampaignController::class, 'show']);
     });
 
     Route::prefix('owner')->middleware('role:owner')->group(function () {
         Route::get('company/issuers', [CompanyController::class, 'listCompanyIssuers']);
         Route::post('campaigns', [CampaignController::class, 'store']);
-        Route::get('campaigns/{campaign}', [CampaignController::class, 'show']);
         Route::post('campaigns/{campaign}/assign-issuer', [CampaignController::class, 'assignIssuer']);
 
     });
