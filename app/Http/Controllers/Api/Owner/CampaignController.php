@@ -6,6 +6,7 @@ use App\Enums\CampaignStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CampaignController extends Controller {
@@ -32,7 +33,7 @@ class CampaignController extends Controller {
             'company_id' => ['required', 'exists:companies,id'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'start_date' => ['required', 'date'],
+            'start_date' => ['required', 'date', 'after_or_equal:today'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'min_points_per_voucher' => ['sometimes', 'integer', 'min:1'],
             'min_spend_for_point' => ['required', 'numeric', 'min:0.01'],
@@ -48,23 +49,56 @@ class CampaignController extends Controller {
     }
 
     public function show(Campaign $campaign) {
-        $owner = auth()->user();
-        $owner->company()->where('id', $campaign->company_id)->firstOrFail();
 
-        return response()->json($campaign->load(['rewards', 'issuers', 'vouchers']));
+        $totalVouchers = $campaign->vouchers()->count();
+        $totalRewards = $campaign->rewards()->count();
+        $usersParticipating = $campaign->shopperPoints()->distinct('user_id')->count();
+        $issuersAssigned = $campaign->issuers()->count();
+        $duration = Carbon::parse($campaign->start_date)->diffInDays(Carbon::parse($campaign->end_date));
+
+        return response()->json([
+            'id' => $campaign->id,
+            'name' => $campaign->name,
+            'description' => $campaign->description,
+            'company' => $campaign->company->name,
+            'start_date' => $campaign->start_date,
+            'end_date' => $campaign->end_date,
+            'status' => $campaign->status,
+            'duration' => $duration,
+            'total_vouchers' => $totalVouchers,
+            'total_rewards' => $totalRewards,
+            'users_participating' => $usersParticipating,
+            'issuers_assigned' => $issuersAssigned,
+//            'rewards' => $campaign->rewards,
+//            'issuers' => $campaign->issuers,
+        ]);
     }
 
     public function assignIssuer(Request $request, Campaign $campaign) {
+        $user = auth()->user();
+
+        if ($campaign->company->user_id !== $user->id) {
+            return response()->json(['message' => 'You do not own this campaign\'s company.'], 403);
+        }
+
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
         ]);
 
-        $user = User::findOrFail($request->user_id);
-        if (!$user->isIssuer() && !$user->isOwner()) {
-            return response()->json(['message' => 'User must be an issuer or owner to be assigned.'], 400);
+        $issuerUser = User::find($request->user_id);
+        if (!$issuerUser) {
+            return response()->json(['message' => 'Issuer not found.'], 404);
         }
 
-        $campaign->issuers()->syncWithoutDetaching([$user->id]);
+        if (!$issuerUser->isIssuer()) {
+            return response()->json(['message' => 'The user must be an issuer.'], 400);
+        }
+
+        if ($campaign->issuers()->where('user_id', $issuerUser->id)->exists()) {
+            return response()->json(['message' => 'This issuer is already assigned to this campaign.'], 400);
+        }
+
+        $campaign->issuers()->syncWithoutDetaching([$issuerUser->id]);
 
         return response()->json(['message' => 'Issuer assigned successfully.'], 200);
     }
