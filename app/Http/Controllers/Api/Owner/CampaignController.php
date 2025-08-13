@@ -61,6 +61,8 @@ class CampaignController extends Controller {
             'name' => $campaign->name,
             'description' => $campaign->description,
             'company' => $campaign->company->name,
+            'min_points_per_voucher' => $campaign->min_points_per_voucher,
+            'min_spend_for_point' => $campaign->min_spend_for_point,
             'start_date' => $campaign->start_date,
             'end_date' => $campaign->end_date,
             'status' => $campaign->status,
