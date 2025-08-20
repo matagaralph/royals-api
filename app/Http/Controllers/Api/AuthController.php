@@ -66,11 +66,18 @@ class AuthController extends Controller {
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        $companyId = null;
+        if ($user->isOwner()) {
+            $company = $user->company;
+            $companyId = $company ? $company->id : null;
+        }
+
         return response()->json(array_merge(
             $user->toArray(),
             [
                 'access_token' => $token,
                 'token_type' => 'Bearer',
+                'company_id' => $companyId
             ]
         ));
     }
