@@ -1,0 +1,197 @@
+@import 'tailwindcss';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/green-dark.css';
+@import '@radix-ui/colors/amber.css';
+@import '@radix-ui/colors/amber-dark.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/red-dark.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/blue-dark.css';
+@import '@radix-ui/colors/orange.css';
+@import '@radix-ui/colors/orange-dark.css';
+@import '@radix-ui/colors/purple.css';
+@import '@radix-ui/colors/purple-dark.css';
+@import '@radix-ui/colors/pink.css';
+@import '@radix-ui/colors/pink-dark.css';
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/slate-dark.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@variant hocus (&:hover, &:focus);
+
+@theme {
+    /* Breakpoints */
+    --breakpoint-xs: 21.25rem;
+    --breakpoint-sm: 26.25rem;
+    --breakpoint-md: 46.25rem;
+    --breakpoint-lg: 60rem;
+    --breakpoint-xl: 75rem;
+    --breakpoint-2xl: 87.5rem;
+
+    /* Size */
+    --height-15: 3.75rem;
+    --width-15: 3.75rem;
+    --size-15: 3.75rem;
+
+    --font-sans:
+        'Inter', 'InterVariable', 'Inter-var', ui-sans-serif, system-ui,
+        sans-serif;
+
+    /* Backgrounds */
+    --background-color-default: var(--bgColor-default);
+    --background-color-screen: var(--slate-1);
+    --background-color-subtle: var(--slate-2);
+    --background-color-element: var(--slate-3);
+    --background-color-hover: var(--slate-4);
+    --background-color-selected: var(--slate-5);
+    --background-color-overlay: var(--overlay-backdrop-bgColor);
+    --background-color-success: var(--green-3);
+    --background-color-warning: var(--amber-3);
+    --background-color-danger: var(--red-3);
+    --background-color-info: var(--blue-3);
+
+    /* Borders */
+    --border-color-default: #d1d9e0;
+    --border-color-secondary: var(--slate-5);
+    --border-color-success: var(--green-7);
+    --border-color-warning: var(--amber-7);
+    --border-color-danger: var(--red-7);
+    --border-color-info: var(--blue-7);
+    --border-color-disabled: var(--borderColor-disabled);
+
+    /* Icons */
+    --color-icon-default: var(--slate-11);
+    --color-icon-secondary: var(--slate-10);
+    --color-icon-tertiary: var(--slate-9);
+    --color-icon-quaternary: var(--slate-8);
+    --color-icon-success: var(--green-10);
+    --color-icon-warning: var(--amber-11);
+    --color-icon-danger: var(--red-10);
+    --color-icon-info: var(--blue-10);
+
+    /* Text */
+    --color-default: var(--slate-12);
+    --color-secondary: var(--slate-11);
+    --color-tertiary: var(--slate-10);
+    --color-quaternary: var(--slate-9);
+    --color-link: var(--blue-11);
+    --color-success: var(--green-11);
+    --color-warning: var(--amber-11);
+    --color-danger: var(--red-11);
+    --color-info: var(--blue-11);
+
+    --shadow-none: var(--shadows-none);
+    --shadow-xs: var(--shadows-xs);
+    --shadow-sm: var(--shadows-sm);
+    --shadow-md: var(--shadows-md);
+    --shadow-lg: var(--shadows-lg);
+    --shadow-xl: var(--shadows-xl);
+
+    /* Buttons */
+    /* Buttons */
+    --background-color-button-primary: var(--purple-10);
+    --border-color-button-primary: var(--purple-10);
+    --background-color-button-primary-hover: var(--purple-11);
+    --color-button-primary-icon: var(--purple-3);
+    --color-button-primary: var(--color-white);
+    --background-color-button-primary-disabled: var(--purple-7);
+    --border-color-button-primary-disabled: var(--purple-7);
+    --color-button-primary-disabled: var(--color-white);
+
+    --background-color-button-secondary: var(--color-white);
+    --border-color-button-secondary: var(--slate-7);
+    --background-color-button-secondary-hover: var(--slate-3);
+    --color-button-secondary-icon: var(--slate-11);
+    --color-button-secondary: var(--slate-12);
+    --background-color-button-secondary-disabled: var(--color-white);
+    --border-color-button-secondary-disabled: var(--slate-6);
+    --color-button-secondary-disabled: var(--slate-9);
+
+    --background-color-button-tertiary: transparent;
+    --border-color-button-tertiary: transparent;
+    --background-color-button-tertiary-hover: var(--blue-3);
+    --color-button-tertiary-icon: var(--blue-9);
+    --color-button-tertiary: var(--blue-10);
+    --background-color-button-tertiary-disabled: transparent;
+    --border-color-button-tertiary-disabled: transparent;
+    --color-button-tertiary-disabled: var(--blue-8);
+
+    --background-color-button-quaternary: transparent;
+    --border-color-button-quaternary: transparent;
+    --background-color-button-quaternary-hover: var(--slate-3);
+    --color-button-quaternary-icon: var(--slate-11);
+    --color-button-quaternary: var(--slate-12);
+    --background-color-button-quaternary-disabled: transparent;
+    --border-color-button-quaternary-disabled: transparent;
+    --color-button-quaternary-disabled: var(--slate-9);
+
+    --background-color-button-primary-destructive: var(--red-10);
+    --border-color-button-primary-destructive: var(--red-10);
+    --background-color-button-primary-destructive-hover: var(--red-11);
+    --color-button-primary-destructive-icon: var(--red-3);
+    --color-button-primary-destructive: var(--color-white);
+    --background-color-button-primary-destructive-disabled: var(--red-7);
+    --border-color-button-primary-destructive-disabled: var(--red-7);
+    --color-button-primary-destructive-disabled: var(--color-white);
+
+    --background-color-button-secondary-destructive: var(--color-white);
+    --border-color-button-secondary-destructive: var(--red-7);
+    --background-color-button-secondary-destructive-hover: var(--red-3);
+    --color-button-secondary-destructive-icon: var(--red-9);
+    --color-button-secondary-destructive: var(--red-11);
+    --background-color-button-secondary-destructive-disabled: var(
+        --color-white
+    );
+    --border-color-button-secondary-destructive-disabled: var(--red-5);
+    --color-button-secondary-destructive-disabled: var(--red-8);
+
+    --background-color-button-tertiary-destructive: transparent;
+    --border-color-button-tertiary-destructive: transparent;
+    --background-color-button-tertiary-destructive-hover: var(--red-3);
+    --color-button-tertiary-destructive-icon: var(--red-9);
+    --color-button-tertiary-destructive: var(--red-10);
+    --background-color-button-tertiary-destructive-disabled: transparent;
+    --border-color-button-tertiary-destructive-disabled: transparent;
+    --color-button-tertiary-destructive-disabled: var(--red-8);
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: InterVariable, sans-serif;
+    }
+}
+
+:root {
+    --bgColor-default: var(--color-white);
+    --fgColor-default: #212121;
+    --borderColor-disabled: #818b981a;
+    --overlay-backdrop-bgColor: #c8d1da66;
+    --shadows-none: 0 0 transparent;
+    --shadows-xs: 0 1px 3px rgba(0, 0, 0, 0.025), 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadows-sm: 0 3px 6px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.07);
+    --shadows-md: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05);
+    --shadows-lg:
+        0 15px 25px rgba(0, 0, 0, 0.12), 0 5px 10px rgba(0, 0, 0, 0.05);
+    --shadows-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --shadows-inset: inset 0px 1px 0px 0px #1f23280a;
+    --shadows-resting-small:
+        0px 1px 1px 0px #1f23280f, 0px 1px 3px 0px #1f23280f;
+    --shadows-resting-xsmall: 0px 1px 1px 0px #1f23280f;
+}
+
+.dark,
+.dark-theme {
+    --fdColor-default: var(--slate-12);
+    --bgColor-default: var(--slate-1);
+    --overlay-backdrop-bgColor: #21283066;
+    --shadows-none: 0 0 transparent;
+    --shadows-xs: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadows-sm: 0 3px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.25);
+    --shadows-md:
+        0 10px 20px rgba(0, 0, 0, 0.25), 0 3px 6px rgba(0, 0, 0, 0.25);
+    --shadows-lg:
+        0 15px 25px rgba(0, 0, 0, 0.5), 0 5px 10px rgba(0, 0, 0, 0.25);
+    --shadows-xl: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
