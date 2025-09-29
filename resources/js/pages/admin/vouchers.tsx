@@ -13,6 +13,15 @@ type Voucher = {
     qr_code: string;
 };
 
+function getCookie(name: string): string | undefined {
+    const value: string = `; ${document.cookie}`;
+    const parts: string[] = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return parts.pop()?.split(';').shift();
+    }
+    return undefined;
+}
+
 export default function IssueVoucher() {
     const campaignId = new URLSearchParams(window.location.search).get(
         'campaign',
@@ -24,8 +33,8 @@ export default function IssueVoucher() {
         <AppLayout>
             <Heading>Vouchers</Heading>
             <p className='text-sm text-secondary'>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga
-                at commodi nostrum?
+                Generate points vouchers for your shoppers. Track and share
+                vouchers easily from this page.
             </p>
             <div className='mt-4 grid grid-cols-1 gap-8 sm:grid-cols-6'>
                 <div className='sm:col-span-3'>
@@ -44,25 +53,29 @@ export default function IssueVoucher() {
                             ) as string;
 
                             try {
+                                await axios.get(
+                                    'http://localhost:8000/sanctum/csrf-cookie',
+                                    { withCredentials: true },
+                                );
+                                const token = getCookie('XSRF-TOKEN');
                                 const res = await axios.post(
                                     `http://localhost:8000/vouchers/generate/${campaignId}`,
                                     {
                                         shopper_paid_amount,
                                         reference,
                                     },
-                                    { withCredentials: true },
+                                    {
+                                        withCredentials: true,
+                                        headers: {
+                                            Accept: 'application/json',
+                                            'X-XSRF-TOKEN': decodeURIComponent(
+                                                token as string,
+                                            ),
+                                        },
+                                    },
                                 );
                                 const data: Voucher = res.data;
                                 setVoucher(data);
-                                // const qrRes = await axios.get(
-                                //     `http://localhost:8000/api/vouchers/${voucher?.voucher_id}/qr`,
-                                //     {
-                                //         responseType: 'blob',
-                                //         withCredentials: true,
-                                //     },
-                                // );
-                                // const qrUrl = URL.createObjectURL(qrRes.data);
-                                // setQrCode(qrUrl);
                             } catch (err) {
                                 if (err instanceof AxiosError) {
                                     setError(err.response?.data.message);

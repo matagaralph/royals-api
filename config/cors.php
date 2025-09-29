@@ -15,11 +15,15 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://127.0.0.1:8000',
+        'https://royals.africa',
+        'https://www.royals.africa'
+    ],
 
     'allowed_origins_patterns' => [],
 

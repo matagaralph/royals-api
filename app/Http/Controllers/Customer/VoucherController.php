@@ -42,8 +42,7 @@ class VoucherController extends Controller {
         ]);
 
         $businessWhatsapp = config('services.whatsapp.business_number');
-        $whatsappUrl = "https://wa.me/{$businessWhatsapp}?text=" . $voucher->voucher_code;
-
+        $whatsappUrl = "https://wa.me/{$businessWhatsapp}?text=" . $voucher->code;
         $qrCode = QrCode::size(300)
             ->format('png')
             ->generate($whatsappUrl);
@@ -59,11 +58,7 @@ class VoucherController extends Controller {
         ]);
     }
 
-    // public function qrCode(Voucher $voucher) {
 
-    //     return response($qrCode, 200)
-    //         ->header('Content-Type', 'image/png');
-    // }
     public function issueClaimVoucher(Request $request) {
         $request->validate([
             'voucher_code' => ['required', 'string', 'exists:claim_vouchers,code'],

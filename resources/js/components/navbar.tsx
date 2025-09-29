@@ -26,7 +26,7 @@ export default function NavBar() {
                         <span>Royals</span>
                     </button>
                 </div>
-                <div className='flex flex-row items-center gap-2.5'>
+                <div className='hidden flex-row items-center gap-2.5 sm:flex'>
                     <Button href='/' theme='quaternary'>
                         Home
                     </Button>
@@ -38,7 +38,7 @@ export default function NavBar() {
                     </Button>
                 </div>
             </div>
-            <div className='max-lg-gutters:hidden flex items-center gap-3'>
+            <div className='hidden items-center gap-3 sm:flex'>
                 {user ? (
                     <Dropdown
                         trigger={
