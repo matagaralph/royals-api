@@ -2,8 +2,9 @@ import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { InlineMessage } from '@/components/ui/inline-message';
 import { Input } from '@/components/ui/input';
+import royalsApi from '@/helpers/api';
 import AppLayout from '@/layouts/app';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { FormEvent, useState } from 'react';
 
 type Voucher = {
@@ -12,15 +13,6 @@ type Voucher = {
     points_value: number;
     qr_code: string;
 };
-
-function getCookie(name: string): string | undefined {
-    const value: string = `; ${document.cookie}`;
-    const parts: string[] = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-        return parts.pop()?.split(';').shift();
-    }
-    return undefined;
-}
 
 export default function IssueVoucher() {
     const campaignId = new URLSearchParams(window.location.search).get(
@@ -53,25 +45,11 @@ export default function IssueVoucher() {
                             ) as string;
 
                             try {
-                                // await axios.get(
-                                //     'http://localhost:8000/sanctum/csrf-cookie',
-                                //     { withCredentials: true },
-                                // );
-                                const token = getCookie('XSRF-TOKEN');
-                                const res = await axios.post(
-                                    `http://localhost:8000/api/vouchers/generate/${campaignId}`,
+                                const res = await royalsApi.post(
+                                    `/api/vouchers/generate/${campaignId}`,
                                     {
                                         shopper_paid_amount,
                                         reference,
-                                    },
-                                    {
-                                        // withCredentials: true,
-                                        headers: {
-                                            Accept: 'application/json',
-                                            // 'X-XSRF-TOKEN': decodeURIComponent(
-                                            //     token as string,
-                                            // ),
-                                        },
                                     },
                                 );
                                 const data: Voucher = res.data;
