@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/description-list';
 import Dialog from '@/components/ui/dialog';
 import { Heading, Subheading } from '@/components/ui/heading';
+import { InlineMessage } from '@/components/ui/inline-message';
 import { Input } from '@/components/ui/input';
 import { Link } from '@/components/ui/link';
 import AppLayout from '@/layouts/app';
@@ -165,36 +166,45 @@ function AddReward({ campaign }: { campaign: Campaign }) {
                     className='space-y-6'
                     onSuccess={() => setIsOpen(false)}
                 >
-                    <div>
-                        <label
-                            htmlFor='title'
-                            className='block text-sm leading-6 font-medium text-default'
-                        >
-                            Title
-                        </label>
-                        <Input
-                            className='mt-1.5'
-                            id='title'
-                            name='title'
-                            placeholder='Early Bird Bonus'
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label
-                            htmlFor='points-required'
-                            className='block text-sm leading-6 font-medium text-default'
-                        >
-                            Points Required
-                        </label>
-                        <Input
-                            className='mt-1.5'
-                            id='points_required'
-                            name='points_required'
-                            type='number'
-                            required
-                        />
-                    </div>
+                    {({ errors }) => (
+                        <>
+                            <div>
+                                <label
+                                    htmlFor='title'
+                                    className='block text-sm leading-6 font-medium text-default'
+                                >
+                                    Title
+                                </label>
+                                <Input
+                                    className='mt-1.5'
+                                    id='title'
+                                    name='title'
+                                    placeholder='Early Bird Bonus'
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    htmlFor='points-required'
+                                    className='block text-sm leading-6 font-medium text-default'
+                                >
+                                    Points Required
+                                </label>
+                                <Input
+                                    className='mt-1.5'
+                                    id='points_required'
+                                    name='points_required'
+                                    type='number'
+                                    required
+                                />
+                                {Object.keys(errors).length > 0 && (
+                                    <InlineMessage variant='critical'>
+                                        {Object.values(errors)[0]}
+                                    </InlineMessage>
+                                )}
+                            </div>
+                        </>
+                    )}
                 </Form>
             </Dialog.Content>
         </Dialog>
