@@ -13,7 +13,9 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
+    'whatsapp' => [
+        'business_number' => env('BOT_NUMBER', '263710391871'),
+    ],
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

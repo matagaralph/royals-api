@@ -77,7 +77,7 @@ export default function CampaignPage() {
                     <div className='flex items-center gap-4'>
                         <Button
                             theme='secondary'
-                            href={`/admin/vouchers/?campaign=${campaign.id}`}
+                            href={`/admin/vouchers/create?campaign=${campaign.id}`}
                         >
                             Issue Voucher
                         </Button>

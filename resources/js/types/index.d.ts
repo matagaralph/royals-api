@@ -36,3 +36,10 @@ interface Campaign {
     updated_at: string;
     [key: string]: unknown;
 }
+
+interface Voucher {
+    voucher_id: string;
+    voucher_code: string;
+    points_value: number;
+    qr_code_image: string;
+}
