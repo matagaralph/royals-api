@@ -32,7 +32,7 @@ function DropdownImpl({
             <Portal>
                 <Content
                     className={mergeCn(
-                        'flex min-w-[180px] flex-col gap-0.5 rounded-md border border-default bg-default p-1 shadow-md',
+                        'z-50 flex min-w-[180px] flex-col gap-0.5 rounded-md border border-default bg-default p-1 shadow-md',
                         'data-[side=bottom]:animate-slideUpAndFadeIn will-change-[opacity,transform]',
                         className,
                     )}

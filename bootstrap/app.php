@@ -1,10 +1,13 @@
 <?php
 
+use Inertia\Inertia;
+use Inertia\Response;
 use App\Http\Middleware\CheckUserRole;
-use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -22,5 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (NotFoundHttpException $e, Request $request): Response {
+            return Inertia::render('errors/not-found');
+        });
     })->create();

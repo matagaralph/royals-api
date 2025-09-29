@@ -10,5 +10,4 @@ class Role extends SpatieRole {
 
     public $incrementing = false;
     protected $keyType = 'string';
-
 }

@@ -2,29 +2,24 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\UserRole;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use Inertia\Response as InertiaResponse;
-
 
 class CheckUserRole {
 
-    public function handle(Request $request, Closure $next, string $roles): InertiaResponse {
+    public function handle(Request $request, Closure $next, string $roles) {
 
         if (!Auth::check()) {
-            return Inertia::render('errors/forbidden');
+            return redirect()->intended('login');
         }
 
-        $allowedRoles = collect(explode('|', $roles))
-            ->map(fn(string $role) => UserRole::from($role)->value);
+        $allowedRoles = collect(explode('|', $roles));
+        $userRole = Auth::user()->getRoleNames()->first();
 
-        $userRoleName = Auth::user()->getRoleNames()->first(); // e.g. "owner"
-
-        if (!$allowedRoles->contains($userRoleName)) {
-            return Inertia::render('errors/not-found');
+        if (!$allowedRoles->contains($userRole)) {
+            return Inertia::render('errors/forbidden');
         }
 
         return $next($request);
