@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/{campaign}', [CampaignController::class, 'show'])->name('campaigns.show');
         Route::post('/rewards/{campaign}', [RewardController::class, 'store'])->name('rewards.store');
         Route::get('/admin/vouchers/create', [VoucherController::class, 'index']);
-        Route::post('/vouchers/generate/{campaign}', [VoucherController::class, 'generatePointsVoucher'])->name('vouchers.issue');
+        Route::post('/vouchers/generate/{campaign}', [VoucherController::class, 'generatePointsVoucher']);
         Route::get('/vouchers/{voucher}/qr', [VoucherController::class, 'qrCode']);
     });
 });

@@ -8,5 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
-Route::get('/vouchers/{voucher}/qr', [VoucherController::class, 'qrCode']);
+Route::post('/vouchers/generate/{campaign}', [VoucherController::class, 'generatePointsVoucher']);

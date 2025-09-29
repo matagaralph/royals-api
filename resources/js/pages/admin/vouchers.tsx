@@ -59,7 +59,7 @@ export default function IssueVoucher() {
                                 // );
                                 const token = getCookie('XSRF-TOKEN');
                                 const res = await axios.post(
-                                    `http://localhost:8000/vouchers/generate/${campaignId}`,
+                                    `http://localhost:8000/api/vouchers/generate/${campaignId}`,
                                     {
                                         shopper_paid_amount,
                                         reference,
