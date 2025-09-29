@@ -53,10 +53,10 @@ export default function IssueVoucher() {
                             ) as string;
 
                             try {
-                                await axios.get(
-                                    'http://localhost:8000/sanctum/csrf-cookie',
-                                    { withCredentials: true },
-                                );
+                                // await axios.get(
+                                //     'http://localhost:8000/sanctum/csrf-cookie',
+                                //     { withCredentials: true },
+                                // );
                                 const token = getCookie('XSRF-TOKEN');
                                 const res = await axios.post(
                                     `http://localhost:8000/vouchers/generate/${campaignId}`,
@@ -65,12 +65,12 @@ export default function IssueVoucher() {
                                         reference,
                                     },
                                     {
-                                        withCredentials: true,
+                                        // withCredentials: true,
                                         headers: {
                                             Accept: 'application/json',
-                                            'X-XSRF-TOKEN': decodeURIComponent(
-                                                token as string,
-                                            ),
+                                            // 'X-XSRF-TOKEN': decodeURIComponent(
+                                            //     token as string,
+                                            // ),
                                         },
                                     },
                                 );
