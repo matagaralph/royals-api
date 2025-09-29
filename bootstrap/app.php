@@ -23,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => CheckUserRole::class
         ]);
+        $middleware->trustProxies(at: [
+            '*'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // $exceptions->render(function (NotFoundHttpException $e): Response {
