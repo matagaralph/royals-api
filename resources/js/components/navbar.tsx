@@ -42,8 +42,11 @@ export default function NavBar() {
                                 </Link>
                             </li>
                             <li>
-                                <Link className='hover:text-link' href='#'>
-                                    Pricing
+                                <Link
+                                    className='hover:text-link'
+                                    href='admin/collaborators'
+                                >
+                                    Collaborators
                                 </Link>
                             </li>
                             <li>
