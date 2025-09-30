@@ -1,9 +1,11 @@
+import { Select } from '@/components/select';
 import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { InlineMessage } from '@/components/ui/inline-message';
 import { Input } from '@/components/ui/input';
 import royalsApi from '@/helpers/api';
 import AppLayout from '@/layouts/app';
+import { usePage } from '@inertiajs/react';
 import { AxiosError } from 'axios';
 import { FormEvent, useState } from 'react';
 
@@ -20,6 +22,20 @@ export default function IssueVoucher() {
     );
     const [voucher, setVoucher] = useState<Voucher | null>(null);
     const [error, setError] = useState('');
+    const { campaigns } = usePage<{ campaigns: Campaign[] }>().props;
+    const [selectedCampaign, setSelectedCampaign] = useState('');
+
+    const handleCampaignChange = (campaign: string) => {
+        setSelectedCampaign(campaign);
+
+        const params = new URLSearchParams(window.location.search);
+        params.set('campaign', campaign);
+        window.history.replaceState(
+            {},
+            '',
+            `${window.location.pathname}?${params}`,
+        );
+    };
 
     return (
         <AppLayout>
@@ -90,8 +106,30 @@ export default function IssueVoucher() {
                                 name='reference'
                                 placeholder='Enter receipt number (optional)'
                             />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor='reference'
+                                className='block text-sm leading-6 font-medium text-default'
+                            >
+                                Select Campaign
+                            </label>
+                            <Select
+                                className='mt-1.5'
+                                value={selectedCampaign}
+                                onChange={(e) =>
+                                    handleCampaignChange(e.target.value)
+                                }
+                            >
+                                {campaigns.map((c) => (
+                                    <option value={c.id}>{c.name}</option>
+                                ))}
+                            </Select>
                             {error && (
-                                <InlineMessage variant='critical'>
+                                <InlineMessage
+                                    className='mt-2'
+                                    variant='critical'
+                                >
                                     {error}
                                 </InlineMessage>
                             )}

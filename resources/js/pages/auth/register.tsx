@@ -1,120 +1,124 @@
 import { Button } from '@/components/ui/button';
 import { InlineMessage } from '@/components/ui/inline-message';
 import { Input } from '@/components/ui/input';
-import { Link } from '@/components/ui/link';
-import { Form, Head } from '@inertiajs/react';
+import { Form, Link } from '@inertiajs/react';
+import { GoChevronRight } from 'react-icons/go';
 
-export default function LoginPage() {
+export default function Register() {
     return (
-        <>
-            <Head title='Sign in to your account' />
-            <div className='flex h-dvh flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-                <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <img
-                        className='mx-auto h-10 w-auto'
-                        src='/logo.png'
-                        alt='Royals'
-                    />
-                    <h2 className='mt-10 text-center text-2xl leading-9 font-bold tracking-tight text-default'>
-                        Sign up to Royals Loyalty
-                    </h2>
-                </div>
-
-                <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <Form
-                        className='space-y-6'
-                        method='post'
-                        action={route('register')}
-                        resetOnSuccess={['password']}
-                    >
-                        {({ processing, errors }) => (
-                            <>
-                                <div>
-                                    <label
-                                        htmlFor='name'
-                                        className='block text-sm leading-6 font-medium text-default'
-                                    >
-                                        Name
-                                    </label>
-                                    <div className='mt-2'>
-                                        <Input
-                                            id='name'
-                                            name='name'
-                                            autoComplete='name'
-                                            placeholder='Maria Kuleya'
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label
-                                        htmlFor='email'
-                                        className='block text-sm leading-6 font-medium text-default'
-                                    >
-                                        Email address
-                                    </label>
-                                    <div className='mt-2'>
-                                        <Input
-                                            id='email'
-                                            name='email'
-                                            type='email'
-                                            autoComplete='email'
-                                            placeholder='someone@example.com'
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label
-                                        htmlFor='password'
-                                        className='block text-sm leading-6 font-medium text-default'
-                                    >
-                                        Password
-                                    </label>
-
-                                    <div className='mt-2'>
-                                        <Input
-                                            id='password'
-                                            name='password'
-                                            type='password'
-                                            autoComplete='current-password'
-                                            placeholder='Password'
-                                            required
-                                        />
-                                    </div>
-                                    {Object.keys(errors).length > 0 && (
-                                        <InlineMessage variant='critical'>
-                                            {Object.values(errors)[0]}
-                                        </InlineMessage>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <Button
-                                        disabled={processing}
-                                        type='submit'
-                                        className='w-full justify-center'
-                                    >
-                                        Sign up with Email
-                                    </Button>
-                                </div>
-                            </>
-                        )}
-                    </Form>
-
-                    <p className='mt-4 text-sm text-tertiary'>
-                        Already have an account?
-                        <Link
-                            href='/login'
-                            className='mx-1 leading-6 font-medium text-secondary hover:text-link'
+        <div className='relative flex min-h-screen flex-col items-center justify-center bg-white'>
+            <div className='flex w-full max-w-[512px] flex-col gap-12 px-6'>
+                <div>
+                    <div className='space-y-8'>
+                        <div className='flex w-full flex-col items-start justify-start gap-2'>
+                            <h1 className='text-xl leading-6 font-medium text-default'>
+                                Welcome to Royals Loyalty
+                            </h1>
+                            <p className='text-sm text-secondary'>
+                                Sign up and launch your first campaign today.
+                            </p>
+                        </div>
+                        <Form
+                            className='space-y-6'
+                            method='post'
+                            action={route('register')}
+                            resetOnSuccess={['password']}
                         >
-                            Sign In
-                        </Link>
-                    </p>
+                            {({ processing, errors }) => (
+                                <>
+                                    <div>
+                                        <label
+                                            htmlFor='email'
+                                            className='block text-sm leading-6 font-medium text-default'
+                                        >
+                                            Email address
+                                        </label>
+                                        <div className='mt-2'>
+                                            <Input
+                                                id='email'
+                                                name='email'
+                                                type='email'
+                                                autoComplete='email'
+                                                placeholder='example@company.com'
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            htmlFor='password'
+                                            className='block text-sm leading-6 font-medium text-default'
+                                        >
+                                            Password
+                                        </label>
+
+                                        <div className='mt-2'>
+                                            <Input
+                                                id='password'
+                                                name='password'
+                                                type='password'
+                                                autoComplete='current-password'
+                                                placeholder='New Password'
+                                                required
+                                            />
+                                        </div>
+                                        {Object.keys(errors).length > 0 && (
+                                            <InlineMessage variant='critical'>
+                                                {Object.values(errors)[0]}
+                                            </InlineMessage>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <Button
+                                            rightSlot={
+                                                <GoChevronRight className='size-4' />
+                                            }
+                                            disabled={processing}
+                                            type='submit'
+                                            className='w-full justify-center'
+                                        >
+                                            Continue
+                                        </Button>
+                                        <p className='mt-6 text-[13px] text-default'>
+                                            By creating an account, you agree to
+                                            our
+                                            <Link
+                                                href='/legal/terms'
+                                                target='_blank'
+                                                rel='noopener noreferrer'
+                                                className='mx-1 font-medium text-link focus:outline-hidden'
+                                            >
+                                                Terms of Service
+                                            </Link>
+                                            and
+                                            <Link
+                                                href='/legal/privacy-policy'
+                                                target='_blank'
+                                                rel='noopener noreferrer'
+                                                className='mx-1 font-medium text-link focus:outline-hidden'
+                                            >
+                                                Privacy Policy
+                                            </Link>
+                                            .
+                                        </p>
+                                    </div>
+                                </>
+                            )}
+                        </Form>
+                        <p className='text-[13px] text-tertiary'>
+                            Already have an account?
+                            <Link
+                                className='mx-1 text-link hover:text-link/90'
+                                href='/login'
+                            >
+                                Sign in
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

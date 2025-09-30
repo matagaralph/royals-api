@@ -3,6 +3,7 @@ import { InlineMessage } from '@/components/ui/inline-message';
 import { Input } from '@/components/ui/input';
 import { Link } from '@/components/ui/link';
 import { Form, Head } from '@inertiajs/react';
+import { GoChevronRight } from 'react-icons/go';
 
 export default function LoginPage() {
     return (
@@ -26,6 +27,10 @@ export default function LoginPage() {
                         method='post'
                         action={route('login')}
                         resetOnSuccess={['password']}
+                        transform={(data: Record<string, any>) => {
+                            const payload = { ...data, remember: true };
+                            return payload;
+                        }}
                     >
                         {({ processing, errors }) => (
                             <>
@@ -59,7 +64,7 @@ export default function LoginPage() {
                                         <div className='text-sm'>
                                             <Link
                                                 href='#'
-                                                className='font-medium text-secondary hover:text-link'
+                                                className='font-medium text-link'
                                             >
                                                 Forgot password?
                                             </Link>
@@ -84,6 +89,9 @@ export default function LoginPage() {
 
                                 <div>
                                     <Button
+                                        rightSlot={
+                                            <GoChevronRight className='size-4' />
+                                        }
                                         disabled={processing}
                                         type='submit'
                                         className='w-full justify-center'
@@ -96,7 +104,7 @@ export default function LoginPage() {
                     </Form>
 
                     <p className='mt-4 text-sm text-tertiary'>
-                        Not a member?
+                        Don't have an account?
                         <Link
                             href='/register'
                             className='mx-1 leading-6 font-medium text-secondary hover:text-link'

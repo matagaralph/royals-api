@@ -25,6 +25,7 @@
     "@tailwindcss/oxide"
   ],
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@inertiajs/react": "^2.2.1",
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-dialog": "^1.1.15",

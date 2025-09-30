@@ -15,8 +15,10 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class VoucherController extends Controller {
 
-    public function index() {
-        return Inertia::render('admin/vouchers');
+    public function index(Request $request) {
+        $company = $request->user()->company()->firstOrFail();
+        $campaigns = $company->campaigns()->orderBy('created_at')->get();
+        return Inertia::render('admin/vouchers', ['campaigns' => $campaigns]);
     }
 
     public function generatePointsVoucher(Request $request, Campaign $campaign) {
