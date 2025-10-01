@@ -22,7 +22,7 @@ export default function NavBar() {
     };
 
     return (
-        <div className='border-b border-b-default py-3 lg:mx-0 lg:px-8'>
+        <div className='border-b border-b-default py-4 sm:py-3 lg:mx-0 lg:px-8'>
             <div className='relative mx-4 flex items-center'>
                 <Link
                     className='mr-3 flex items-center gap-x-3 overflow-hidden md:w-auto'
