@@ -11,7 +11,7 @@ export default function IndexPage() {
             <NavBar />
             <div className='mx-auto max-w-7xl px-6 pt-8 pb-16 sm:pt-12 sm:pb-24 lg:flex lg:items-center lg:gap-x-16 lg:px-8 lg:pt-20 lg:pb-24'>
                 <div className='mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8'>
-                    <h1 className='text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl'>
+                    <h1 className='!font-heading text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl'>
                         Turn loyal customers into brand advocates
                     </h1>
                     <p className='mt-6 text-lg leading-8 text-slate-600 sm:text-xl sm:leading-8'>
@@ -67,7 +67,7 @@ export default function IndexPage() {
                             <h2 className='text-sm font-medium text-slate-500'>
                                 Everything you need
                             </h2>
-                            <p className='mt-5 text-3xl font-semibold text-balance text-white sm:text-4xl'>
+                            <p className='mt-5 font-heading text-3xl font-semibold text-balance text-white sm:text-4xl'>
                                 All the advanced
                                 <span className='mx-2 [text-shadow:0_-1px_10px_theme(colors.white/0.45)]'>
                                     features

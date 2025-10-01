@@ -10,6 +10,10 @@ Route::get('/', function () {
     return Inertia::render('index');
 })->name('home');
 
+Route::get('/contact', function () {
+    return Inertia::render('contact');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/ma', function () {
         return Inertia::render('ma');
