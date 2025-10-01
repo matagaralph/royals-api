@@ -1,270 +1,270 @@
-import React, {
-  cloneElement,
-  isValidElement,
-  type PropsWithChildren,
-} from 'react';
 import type { ReactElement } from 'react';
+import React, {
+    cloneElement,
+    isValidElement,
+    type PropsWithChildren,
+} from 'react';
 
+import { mergeCn } from '@/helpers/mergeClasses';
+import { LinkBase, type LinkBaseProps } from '../link';
 import { ButtonBase, type ButtonBaseProps } from './button-base';
 import { titleCase } from './helpers';
-import { LinkBase, type LinkBaseProps } from '../link';
-import { mergeCn } from '@/helpers/mergeClasses';
 
 export type ButtonSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 export type ButtonTheme =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'quaternary'
-  | 'primary-destructive'
-  | 'secondary-destructive'
-  | 'tertiary-destructive';
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'quaternary'
+    | 'primary-destructive'
+    | 'secondary-destructive'
+    | 'tertiary-destructive';
 
 export type ButtonProps = ButtonBaseProps &
-  LinkBaseProps & {
-    size?: ButtonSize;
-    theme?: ButtonTheme;
-    leftSlot?: ReactElement;
-    rightSlot?: ReactElement;
-    skipCapitalization?: boolean;
-  };
+    LinkBaseProps & {
+        size?: ButtonSize;
+        theme?: ButtonTheme;
+        leftSlot?: ReactElement;
+        rightSlot?: ReactElement;
+        skipCapitalization?: boolean;
+    };
 
 function getSizeClasses(size: ButtonSize) {
-  switch (size) {
-    case '2xs':
-      return 'h-7 px-1.5 text-3xs';
-    case 'xs':
-      return 'h-9 px-3 text-3xs';
-    case 'sm':
-      return 'h-8 px-4 text-sm';
-    case 'md':
-      return 'h-10 px-4 text-xs';
-    case 'lg':
-      return 'h-11 px-6 text-base';
-    case 'xl':
-      return 'h-12 px-6 text-base';
-    case '2xl':
-      return 'h-15 px-6 text-lg';
-  }
+    switch (size) {
+        case '2xs':
+            return 'h-7 px-1.5 text-3xs';
+        case 'xs':
+            return 'h-9 px-3 text-3xs';
+        case 'sm':
+            return 'h-8 px-4 text-sm';
+        case 'md':
+            return 'h-10 px-4 text-sm';
+        case 'lg':
+            return 'h-11 px-6 text-base';
+        case 'xl':
+            return 'h-12 px-6 text-base';
+        case '2xl':
+            return 'h-15 px-6 text-lg';
+    }
 }
 
 function getThemeClasses(theme: ButtonTheme, disabled = false) {
-  switch (theme) {
-    case 'primary':
-      return mergeCn(
-        'border-button-primary bg-button-primary text-button-primary shadow-xs',
-        !disabled && 'hocus:bg-button-primary-hover active:scale-98',
-        disabled &&
-          'bg-button-primary-disabled border-button-primary-disabled text-button-primary-disabled'
-      );
-    case 'primary-destructive':
-      return mergeCn(
-        'border-button-primary-destructive bg-button-primary-destructive text-button-primary-destructive shadow-xs',
-        !disabled &&
-          'hocus:bg-button-primary-destructive-hover active:scale-98',
-        disabled &&
-          'bg-button-primary-destructive-disabled border-button-primary-destructive-disabled text-button-primary-destructive-disabled'
-      );
-    case 'secondary':
-      return mergeCn(
-        'border-button-secondary bg-button-secondary text-button-secondary shadow-xs',
-        !disabled && 'hocus:bg-button-secondary-hover active:scale-98',
-        disabled &&
-          'bg-button-secondary-disabled border-button-secondary-disabled text-button-secondary-disabled'
-      );
-    case 'secondary-destructive':
-      return mergeCn(
-        'border-button-secondary-destructive bg-button-secondary-destructive text-button-secondary-destructive shadow-xs',
-        !disabled &&
-          'hocus:bg-button-secondary-destructive-hover active:scale-98',
-        disabled &&
-          'bg-button-secondary-destructive-disabled border-button-secondary-destructive-disabled text-button-secondary-destructive-disabled'
-      );
-    case 'tertiary':
-      return mergeCn(
-        'border-button-tertiary bg-button-tertiary text-button-tertiary shadow-none',
-        !disabled && 'hocus:bg-button-tertiary-hover active:scale-98',
-        disabled &&
-          'bg-button-tertiary-disabled border-button-tertiary-disabled text-button-tertiary-disabled'
-      );
-    case 'tertiary-destructive':
-      return mergeCn(
-        'border-button-tertiary-destructive bg-button-tertiary-destructive text-button-tertiary-destructive shadow-none',
-        !disabled &&
-          'hocus:bg-button-tertiary-destructive-hover active:scale-98',
-        disabled &&
-          'bg-button-tertiary-destructive-disabled border-button-tertiary-destructive-disabled text-button-tertiary-destructive-disabled'
-      );
-    case 'quaternary':
-      return mergeCn(
-        'border-button-quaternary bg-button-quaternary text-button-quaternary shadow-none',
-        !disabled && 'hocus:bg-button-quaternary-hover active:scale-98',
-        disabled &&
-          'bg-button-quaternary-disabled border-button-quaternary-disabled text-button-quaternary-disabled'
-      );
-  }
+    switch (theme) {
+        case 'primary':
+            return mergeCn(
+                'border-button-primary bg-button-primary text-button-primary shadow-xs',
+                !disabled && 'hocus:bg-button-primary-hover active:scale-98',
+                disabled &&
+                    'bg-button-primary-disabled border-button-primary-disabled text-button-primary-disabled',
+            );
+        case 'primary-destructive':
+            return mergeCn(
+                'border-button-primary-destructive bg-button-primary-destructive text-button-primary-destructive shadow-xs',
+                !disabled &&
+                    'hocus:bg-button-primary-destructive-hover active:scale-98',
+                disabled &&
+                    'bg-button-primary-destructive-disabled border-button-primary-destructive-disabled text-button-primary-destructive-disabled',
+            );
+        case 'secondary':
+            return mergeCn(
+                'border-button-secondary bg-button-secondary text-button-secondary shadow-xs',
+                !disabled && 'hocus:bg-button-secondary-hover active:scale-98',
+                disabled &&
+                    'bg-button-secondary-disabled border-button-secondary-disabled text-button-secondary-disabled',
+            );
+        case 'secondary-destructive':
+            return mergeCn(
+                'border-button-secondary-destructive bg-button-secondary-destructive text-button-secondary-destructive shadow-xs',
+                !disabled &&
+                    'hocus:bg-button-secondary-destructive-hover active:scale-98',
+                disabled &&
+                    'bg-button-secondary-destructive-disabled border-button-secondary-destructive-disabled text-button-secondary-destructive-disabled',
+            );
+        case 'tertiary':
+            return mergeCn(
+                'border-button-tertiary bg-button-tertiary text-button-tertiary shadow-none',
+                !disabled && 'hocus:bg-button-tertiary-hover active:scale-98',
+                disabled &&
+                    'bg-button-tertiary-disabled border-button-tertiary-disabled text-button-tertiary-disabled',
+            );
+        case 'tertiary-destructive':
+            return mergeCn(
+                'border-button-tertiary-destructive bg-button-tertiary-destructive text-button-tertiary-destructive shadow-none',
+                !disabled &&
+                    'hocus:bg-button-tertiary-destructive-hover active:scale-98',
+                disabled &&
+                    'bg-button-tertiary-destructive-disabled border-button-tertiary-destructive-disabled text-button-tertiary-destructive-disabled',
+            );
+        case 'quaternary':
+            return mergeCn(
+                'border-button-quaternary bg-button-quaternary text-button-quaternary shadow-none',
+                !disabled && 'hocus:bg-button-quaternary-hover active:scale-98',
+                disabled &&
+                    'bg-button-quaternary-disabled border-button-quaternary-disabled text-button-quaternary-disabled',
+            );
+    }
 }
 
 function getIconSizeClasses(size: ButtonSize) {
-  switch (size) {
-    case '2xs':
-      return 'icon-2xs';
-    case 'xs':
-      return 'icon-xs';
-    case 'sm':
-      return 'icon-sm';
-    case 'md':
-      return 'icon-md';
-    case 'lg':
-      return 'icon-md';
-    case 'xl':
-      return 'icon-lg';
-    case '2xl':
-      return 'icon-lg';
-  }
+    switch (size) {
+        case '2xs':
+            return 'icon-2xs';
+        case 'xs':
+            return 'icon-xs';
+        case 'sm':
+            return 'icon-sm';
+        case 'md':
+            return 'icon-md';
+        case 'lg':
+            return 'icon-md';
+        case 'xl':
+            return 'icon-lg';
+        case '2xl':
+            return 'icon-lg';
+    }
 }
 
 function getThemedIconClasses(theme: ButtonTheme) {
-  switch (theme) {
-    case 'primary':
-      return 'text-button-primary-icon';
-    case 'primary-destructive':
-      return 'text-button-primary-destructive-icon';
-    case 'secondary':
-      return 'text-button-secondary-icon';
-    case 'secondary-destructive':
-      return 'text-button-secondary-destructive-icon';
-    case 'tertiary':
-      return 'text-button-tertiary-icon';
-    case 'tertiary-destructive':
-      return 'text-button-tertiary-destructive-icon';
-    case 'quaternary':
-      return 'text-button-quaternary-icon';
-  }
+    switch (theme) {
+        case 'primary':
+            return 'text-button-primary-icon';
+        case 'primary-destructive':
+            return 'text-button-primary-destructive-icon';
+        case 'secondary':
+            return 'text-button-secondary-icon';
+        case 'secondary-destructive':
+            return 'text-button-secondary-destructive-icon';
+        case 'tertiary':
+            return 'text-button-tertiary-icon';
+        case 'tertiary-destructive':
+            return 'text-button-tertiary-destructive-icon';
+        case 'quaternary':
+            return 'text-button-quaternary-icon';
+    }
 }
 
 function getButtonIconClasses(size: ButtonSize) {
-  switch (size) {
-    case '2xs':
-      return 'px-0 w-7 justify-center items-center';
-    case 'xs':
-      return 'px-0 w-8 justify-center items-center';
-    case 'sm':
-      return 'px-0 w-9 justify-center items-center';
-    case 'md':
-      return 'px-0 w-10 justify-center items-center';
-    case 'lg':
-      return 'px-0 w-11 justify-center items-center';
-    case 'xl':
-      return 'px-0 w-12 justify-center items-center';
-    case '2xl':
-      return 'px-0 w-15 justify-center items-center';
-  }
+    switch (size) {
+        case '2xs':
+            return 'px-0 w-7 justify-center items-center';
+        case 'xs':
+            return 'px-0 w-8 justify-center items-center';
+        case 'sm':
+            return 'px-0 w-9 justify-center items-center';
+        case 'md':
+            return 'px-0 w-10 justify-center items-center';
+        case 'lg':
+            return 'px-0 w-11 justify-center items-center';
+        case 'xl':
+            return 'px-0 w-12 justify-center items-center';
+        case '2xl':
+            return 'px-0 w-15 justify-center items-center';
+    }
 }
 
 function isIconElement(element: ReactElement) {
-  if (isValidElement<ReactElement>(element)) {
-    // @ts-ignore React Portal did not have `displayName` prop, but it is a valid element
-    return element.type?.displayName?.endsWith('Icon') ?? false;
-  }
-  return false;
+    if (isValidElement<ReactElement>(element)) {
+        // @ts-ignore React Portal did not have `displayName` prop, but it is a valid element
+        return element.type?.displayName?.endsWith('Icon') ?? false;
+    }
+    return false;
 }
 
 function getIconProps(element: ReactElement, classNames: string) {
-  if (!isValidElement<PropsWithChildren<{ className?: string }>>(element)) {
-    return element;
-  }
-  return {
-    ...element.props,
-    className: mergeCn(classNames, element.props.className),
-  };
+    if (!isValidElement<PropsWithChildren<{ className?: string }>>(element)) {
+        return element;
+    }
+    return {
+        ...element.props,
+        className: mergeCn(classNames, element.props.className),
+    };
 }
 
 export const Button = ({
-  children,
-  size = 'sm',
-  theme = 'primary',
-  skipCapitalization = false,
-  href,
-  disabled,
-  className,
-  leftSlot,
-  rightSlot,
-  openInNewTab,
-  ref,
-  ...rest
+    children,
+    size = 'sm',
+    theme = 'primary',
+    skipCapitalization = false,
+    href,
+    disabled,
+    className,
+    leftSlot,
+    rightSlot,
+    openInNewTab,
+    ref,
+    ...rest
 }: ButtonProps) => {
-  const isLeftSlotIcon = leftSlot && isIconElement(leftSlot);
-  const isRightSlotIcon = rightSlot && isIconElement(rightSlot);
-  const iconClasses =
-    (isLeftSlotIcon || isRightSlotIcon) &&
-    mergeCn(
-      getIconSizeClasses(size),
-      getThemedIconClasses(theme),
-      disabled && 'opacity-60'
-    );
-  const isSingleIconButton = (leftSlot || rightSlot) && !children;
+    const isLeftSlotIcon = leftSlot && isIconElement(leftSlot);
+    const isRightSlotIcon = rightSlot && isIconElement(rightSlot);
+    const iconClasses =
+        (isLeftSlotIcon || isRightSlotIcon) &&
+        mergeCn(
+            getIconSizeClasses(size),
+            getThemedIconClasses(theme),
+            disabled && 'opacity-60',
+        );
+    const isSingleIconButton = (leftSlot || rightSlot) && !children;
 
-  const twClasses = mergeCn(
-    `inline-flex border border-solid rounded-md font-medium items-center whitespace-nowrap transition gap-2`,
-    size === 'xs' && 'gap-1.5',
-    size === '2xs' && 'gap-1',
-    size === '2xl' && 'rounded-md',
-    getSizeClasses(size),
-    getThemeClasses(theme, disabled),
-    isSingleIconButton && getButtonIconClasses(size),
-    disabled && 'cursor-default opacity-80 pointer-event-none',
-    className
-  );
-
-  const content = (
-    <>
-      {isLeftSlotIcon
-        ? cloneElement(leftSlot, getIconProps(leftSlot, iconClasses))
-        : leftSlot}
-      {children && (
-        <span
-          className={mergeCn(
-            'flex self-center text-inherit leading-none',
-            href && 'select-none'
-          )}
-        >
-          {typeof children === 'string' && !skipCapitalization
-            ? titleCase(children)
-            : children}
-        </span>
-      )}
-      {isRightSlotIcon
-        ? cloneElement(rightSlot, getIconProps(rightSlot, iconClasses))
-        : rightSlot}
-    </>
-  );
-
-  if (href) {
-    return (
-      <LinkBase
-        href={href}
-        className={twClasses}
-        disabled={disabled}
-        ref={ref as React.Ref<HTMLAnchorElement>}
-        openInNewTab={openInNewTab}
-        {...rest}
-      >
-        {content}
-      </LinkBase>
+    const twClasses = mergeCn(
+        `inline-flex border border-solid rounded-md font-medium items-center whitespace-nowrap transition gap-2`,
+        size === 'xs' && 'gap-1.5',
+        size === '2xs' && 'gap-1',
+        size === '2xl' && 'rounded-md',
+        getSizeClasses(size),
+        getThemeClasses(theme, disabled),
+        isSingleIconButton && getButtonIconClasses(size),
+        disabled && 'cursor-default opacity-80 pointer-event-none',
+        className,
     );
-  } else {
-    return (
-      <ButtonBase
-        className={twClasses}
-        disabled={disabled}
-        ref={ref as React.Ref<HTMLButtonElement>}
-        {...rest}
-      >
-        {content}
-      </ButtonBase>
+
+    const content = (
+        <>
+            {isLeftSlotIcon
+                ? cloneElement(leftSlot, getIconProps(leftSlot, iconClasses))
+                : leftSlot}
+            {children && (
+                <span
+                    className={mergeCn(
+                        'flex self-center leading-none text-inherit',
+                        href && 'select-none',
+                    )}
+                >
+                    {typeof children === 'string' && !skipCapitalization
+                        ? titleCase(children)
+                        : children}
+                </span>
+            )}
+            {isRightSlotIcon
+                ? cloneElement(rightSlot, getIconProps(rightSlot, iconClasses))
+                : rightSlot}
+        </>
     );
-  }
+
+    if (href) {
+        return (
+            <LinkBase
+                href={href}
+                className={twClasses}
+                disabled={disabled}
+                ref={ref as React.Ref<HTMLAnchorElement>}
+                openInNewTab={openInNewTab}
+                {...rest}
+            >
+                {content}
+            </LinkBase>
+        );
+    } else {
+        return (
+            <ButtonBase
+                className={twClasses}
+                disabled={disabled}
+                ref={ref as React.Ref<HTMLButtonElement>}
+                {...rest}
+            >
+                {content}
+            </ButtonBase>
+        );
+    }
 };
 
 Button.displayName = 'Button';
