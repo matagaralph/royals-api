@@ -1,6 +1,13 @@
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Link, router, usePage } from '@inertiajs/react';
 import { BiMenu } from 'react-icons/bi';
-import { GoBell, GoMail, GoPerson, GoSignOut } from 'react-icons/go';
+import {
+    GoChevronDown,
+    GoInbox,
+    GoMail,
+    GoPerson,
+    GoSignOut,
+} from 'react-icons/go';
 import { Button } from './ui/button';
 import Dropdown from './ui/dropdown';
 
@@ -36,11 +43,71 @@ export default function NavBar() {
                                     Home
                                 </Link>
                             </li>
-                            <li>
-                                <Link href='#' className='hover:text-link'>
+
+                            <Popover>
+                                <PopoverButton className='data-open:&_svg:rotate-180 flex items-center gap-x-2 font-medium focus:outline-none data-active:text-default data-focus:outline data-focus:outline-slate-900 data-hover:text-default'>
                                     Campaigns
-                                </Link>
-                            </li>
+                                    <GoChevronDown />
+                                </PopoverButton>
+                                <PopoverPanel
+                                    transition
+                                    anchor='bottom'
+                                    className='divide-y divide-slate-200 rounded-xl border border-default bg-white text-sm/6 shadow-lg transition duration-200 ease-in-out [--anchor-gap:--spacing(5)] data-closed:-translate-y-1 data-closed:opacity-0'
+                                >
+                                    <div className='p-3'>
+                                        <a
+                                            className='block rounded-lg px-3 py-2 transition hover:bg-hover'
+                                            href='#'
+                                        >
+                                            <p className='font-semibold text-default'>
+                                                Issue Vouchers
+                                            </p>
+                                            <p className='text-secondary'>
+                                                Generate and distribute points
+                                                vouchers.
+                                            </p>
+                                        </a>
+                                        <a
+                                            className='block rounded-lg px-3 py-2 transition hover:bg-hover'
+                                            href='#'
+                                        >
+                                            <p className='font-semibold text-default'>
+                                                Campaigns
+                                            </p>
+                                            <p className='text-secondary'>
+                                                Create and manage loyalty
+                                                campaigns.
+                                            </p>
+                                        </a>
+                                        <a
+                                            className='block rounded-lg px-3 py-2 transition hover:bg-hover'
+                                            href='#'
+                                        >
+                                            <p className='font-semibold text-default'>
+                                                Analytics
+                                            </p>
+                                            <p className='text-secondary'>
+                                                Track performance and customer
+                                                insights.
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <div className='p-3'>
+                                        <a
+                                            className='block rounded-lg px-3 py-2 transition hover:bg-hover'
+                                            href='#'
+                                        >
+                                            <p className='font-semibold text-default'>
+                                                API Documentation
+                                            </p>
+                                            <p className='text-secondary'>
+                                                Start integrating products and
+                                                tools
+                                            </p>
+                                        </a>
+                                    </div>
+                                </PopoverPanel>
+                            </Popover>
                             <li>
                                 <Link
                                     className='hover:text-link'
@@ -57,43 +124,9 @@ export default function NavBar() {
                         </ul>
                     </nav>
                     <div className='ml-6 flex items-center border-l border-l-default pl-6'>
-                        <label
-                            className='sr-only'
-                            htmlFor='headlessui-listbox-button-:r5:'
-                            id='headlessui-label-:r4:'
-                            data-headlessui-state=''
-                        >
-                            Theme
-                        </label>
-                        <button
-                            type='button'
-                            id='headlessui-listbox-button-:r5:'
-                            aria-haspopup='listbox'
-                            aria-expanded='false'
-                            data-headlessui-state=''
-                            aria-labelledby='headlessui-label-:r4: headlessui-listbox-button-:r5:'
-                        >
-                            <span className='dark:hidden'>
-                                <svg
-                                    viewBox='0 0 24 24'
-                                    fill='none'
-                                    strokeWidth={2}
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                    className='h-6 w-6'
-                                >
-                                    <path
-                                        d='M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
-                                        className='fill-sky-400/20 stroke-sky-500'
-                                    />
-                                    <path
-                                        d='M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836'
-                                        className='stroke-sky-500'
-                                    />
-                                </svg>
-                            </span>
+                        <button type='button'>
                             {user && (
-                                <GoBell className='hidden size-5 text-icon-default sm:inline-flex' />
+                                <GoInbox className='hidden size-5 text-icon-default sm:inline-flex' />
                             )}
                         </button>
                         {user ? (
@@ -141,7 +174,7 @@ export default function NavBar() {
                 </div>
                 <button
                     type='button'
-                    className='-my-1 ml-auto flex h-8 w-8 items-center justify-center text-slate-500 hover:text-slate-600 lg:hidden dark:text-slate-400 dark:hover:text-slate-300'
+                    className='-my-1 ml-auto flex h-8 w-8 items-center justify-center text-slate-500 hover:text-secondary lg:hidden dark:text-slate-400 dark:hover:text-slate-300'
                 >
                     <span className='sr-only'>Search</span>
                     <svg
@@ -161,7 +194,7 @@ export default function NavBar() {
                 <div className='-my-1 ml-2 lg:hidden'>
                     <button
                         type='button'
-                        className='flex h-8 w-8 items-center justify-center text-icon-default hover:text-slate-600'
+                        className='flex h-8 w-8 items-center justify-center text-icon-default hover:text-secondary'
                     >
                         <span className='sr-only'>Navigation</span>
                         <BiMenu className='size-6' />
