@@ -1,9 +1,30 @@
 import NavBar from '@/components/navbar';
 import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/react';
 import { BsBarChartFill } from 'react-icons/bs';
-import { FaRobot } from 'react-icons/fa';
+import { FaFacebook, FaRobot, FaYoutube } from 'react-icons/fa';
 import { FaCircleCheck, FaGift } from 'react-icons/fa6';
 import { GoChevronRight, GoCodescanCheckmark, GoPeople } from 'react-icons/go';
+
+const faqs = [
+    {
+        question: 'How do you make holy water?',
+        answer: 'You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+    },
+    {
+        question: `What's the best thing about Switzerland?`,
+        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+    },
+    {
+        question: `What do you call someone with no body and no nose?`,
+        answer: `Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+    },
+    {
+        question: `Why do you never see elephants hiding in trees?`,
+        answer: `Because they're so good at it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+    },
+    // More questions...
+];
 
 export default function IndexPage() {
     return (
@@ -23,7 +44,9 @@ export default function IndexPage() {
                     <div className='mt-10 flex items-center gap-x-6'>
                         <Button
                             href='/register'
-                            rightSlot={<GoChevronRight className='size-4' />}
+                            rightSlot={
+                                <GoChevronRight className='size-4 text-icon-default' />
+                            }
                             size='md'
                             className='bg-black text-white hocus:bg-black/90'
                         >
@@ -43,14 +66,14 @@ export default function IndexPage() {
                     </div>
                 </div>
             </div>
-            <div className='relative overflow-hidden !bg-[#0c0d0e] px-6 py-12 md:px-8 md:py-20'>
+            <div className='relative overflow-hidden !bg-[var(--purple-10)] px-6 py-12 md:px-8 md:py-20'>
                 <picture>
                     <source
                         srcSet='/pro-features-glow.avif'
                         type='image/avif'
                     />
                     <img
-                        alt=''
+                        alt='Glow'
                         loading='lazy'
                         width={731}
                         height={535}
@@ -62,14 +85,14 @@ export default function IndexPage() {
                     />
                 </picture>
                 <section className='mx-auto sm:max-w-[40rem] md:max-w-3xl lg:max-w-5xl xl:max-w-[77.5rem]'>
-                    <div className='mx-auto border border-[#363a3f] bg-slate-800/10 pt-12 pb-16'>
+                    <div className='mx-auto border border-slate-100 bg-white pt-12 pb-16'>
                         <div className='mx-auto w-full px-6 text-center sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem]'>
-                            <h2 className='text-sm font-medium text-slate-500'>
+                            <h2 className='text-sm font-medium text-gray-500'>
                                 Everything you need
                             </h2>
-                            <p className='mt-5 font-heading text-3xl font-semibold text-balance text-white sm:text-4xl'>
+                            <p className='mt-5 font-heading text-3xl font-semibold text-balance text-[var(--purple-10)] sm:text-4xl'>
                                 All the advanced
-                                <span className='mx-2 [text-shadow:0_-1px_10px_theme(colors.white/0.45)]'>
+                                <span className='[text-shadow:0_-1px_10px_theme(colors.purple/0.45)] mx-2'>
                                     features
                                 </span>
                                 you need
@@ -80,11 +103,11 @@ export default function IndexPage() {
                             className='mt-20 grid grid-cols-1 gap-x-10 gap-y-8 px-6 sm:px-12 md:grid-cols-2 md:gap-y-12 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-16'
                         >
                             <li>
-                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-white'>
-                                    <FaGift className='size-4' />
+                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-default'>
+                                    <FaGift className='size-4 text-icon-default' />
                                     Shopper Rewards
                                 </h3>
-                                <p className='mt-2 text-[0.875rem]/5 text-tertiary'>
+                                <p className='mt-2 text-[0.875rem]/5 text-secondary'>
                                     Reward your shoppers with points and
                                     vouchers. Every voucher includes a unique
                                     code and QR code for seamless redemption and
@@ -92,21 +115,21 @@ export default function IndexPage() {
                                 </p>
                             </li>
                             <li>
-                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-white'>
-                                    <GoCodescanCheckmark className='size-4' />
+                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-default'>
+                                    <GoCodescanCheckmark className='size-4 text-icon-default' />
                                     Instant Voucher Scan
                                 </h3>
-                                <p className='mt-2 text-[0.875rem]/5 text-tertiary'>
+                                <p className='mt-2 text-[0.875rem]/5 text-secondary'>
                                     Scan QR codes to instantly add vouchers to
                                     accounts and watch points grow in real time.
                                 </p>
                             </li>
                             <li>
-                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-white'>
-                                    <FaCircleCheck className='size-4' />
+                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-default'>
+                                    <FaCircleCheck className='size-4 text-icon-default' />
                                     Reward Redemption
                                 </h3>
-                                <p className='mt-2 text-[0.875rem]/5 text-tertiary'>
+                                <p className='mt-2 text-[0.875rem]/5 text-secondary'>
                                     Redeem rewards automatically once points
                                     requirements are met. Voucher claims are
                                     verified by owners to ensure smooth and
@@ -114,33 +137,33 @@ export default function IndexPage() {
                                 </p>
                             </li>
                             <li>
-                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-white'>
-                                    <GoPeople className='size-4' />
+                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-default'>
+                                    <GoPeople className='size-4 text-icon-default' />
                                     Campaign Management
                                 </h3>
-                                <p className='mt-2 text-[0.875rem]/5 text-tertiary'>
+                                <p className='mt-2 text-[0.875rem]/5 text-secondary'>
                                     Manage campaigns, authorize trusted issuers,
                                     and oversee the reward system with full
                                     control and transparency.
                                 </p>
                             </li>
                             <li>
-                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-white'>
-                                    <BsBarChartFill className='size-4' />
+                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-default'>
+                                    <BsBarChartFill className='size-4 text-icon-default' />
                                     Real-Time Analytics
                                 </h3>
-                                <p className='mt-2 text-[0.875rem]/5 text-tertiary'>
+                                <p className='mt-2 text-[0.875rem]/5 text-secondary'>
                                     Track redemption rates, monitor active
                                     users, and measure campaign performance
                                     instantly with live insights.
                                 </p>
                             </li>
                             <li>
-                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-white'>
-                                    <FaRobot className='size-4' />
+                                <h3 className='flex items-center gap-2.5 font-medium whitespace-nowrap text-default'>
+                                    <FaRobot className='size-4 text-icon-default' />
                                     Whatsapp Assistant
                                 </h3>
-                                <p className='mt-2 text-[0.875rem]/5 text-tertiary'>
+                                <p className='mt-2 text-[0.875rem]/5 text-secondary'>
                                     Let customers instantly check their balance,
                                     points, and vouchers through a simple chat
                                     with our WhatsApp assistant.
@@ -158,6 +181,80 @@ export default function IndexPage() {
                     </div>
                 </section>
             </div>
+            <div className='bg-white'>
+                <div className='mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:px-8 lg:py-36'>
+                    <div className='lg:grid lg:grid-cols-12 lg:gap-8'>
+                        <div className='lg:col-span-5'>
+                            <h2 className='font-heading text-2xl leading-10 font-bold tracking-tight text-default'>
+                                Frequently asked questions
+                            </h2>
+                            <p className='mt-4 text-base leading-7 text-gray-600'>
+                                Can’t find the answer you’re looking for? Reach
+                                out to our{' '}
+                                <Link
+                                    href='/contact'
+                                    className='font-semibold text-link hover:text-link/90'
+                                >
+                                    customer sales
+                                </Link>{' '}
+                                team.
+                            </p>
+                        </div>
+                        <div className='mt-10 lg:col-span-7 lg:mt-0'>
+                            <dl className='space-y-10'>
+                                {faqs.map((faq) => (
+                                    <div key={faq.question}>
+                                        <dt className='text-base leading-7 font-semibold text-default'>
+                                            {faq.question}
+                                        </dt>
+                                        <dd className='mt-2 text-base leading-7 text-gray-600'>
+                                            {faq.answer}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer className='mt-16 border-t border-t-default text-sm leading-6'>
+                <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+                    <div className='justify-between py-10 text-slate-500 sm:flex'>
+                        <div className='mb-6 sm:mb-0 sm:flex'>
+                            <p>
+                                Copyright © {new Date().getFullYear()} Royals
+                                Africa
+                            </p>
+                            <p className='sm:ml-4 sm:border-l sm:border-slate-200 sm:pl-4'>
+                                <Link
+                                    className='hover:text-slate-900'
+                                    href='/policy'
+                                >
+                                    Privacy Policy
+                                </Link>
+                            </p>
+                        </div>
+                        <div className='flex space-x-10 text-slate-400'>
+                            <Link
+                                href='#'
+                                className='hover:text-slate-500'
+                                aria-label='GitHub'
+                            >
+                                <span className='sr-only'>Facebook</span>
+                                <FaFacebook className='size-6 text-icon-default' />
+                            </Link>
+                            <Link
+                                href='#'
+                                className='hover:text-slate-500'
+                                aria-label='Discord'
+                            >
+                                <span className='sr-only'>YouTube</span>
+                                <FaYoutube className='size-6 text-icon-default' />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </>
     );
 }
