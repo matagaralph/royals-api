@@ -8,20 +8,32 @@ import { GoChevronRight, GoCodescanCheckmark, GoPeople } from 'react-icons/go';
 
 const faqs = [
     {
-        question: 'How do you make holy water?',
-        answer: 'You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.',
+        question: 'How does it work?',
+        answer: 'All campaigns are created and managed online. After creating your account, proceed to create your campaign and issue vouchers digitally or print them.',
     },
     {
-        question: `What's the best thing about Switzerland?`,
-        answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        question: `How do customers claim their points?`,
+        answer: `If issuing a digital voucher: From within your dashboard, click issue voucher, enter the required details, click generate voucher. Your customer will scan the QR code using their phone camera and send the code on WhatsApp.`,
     },
     {
-        question: `What do you call someone with no body and no nose?`,
-        answer: `Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        question: `How do customers claim their reward(s)?`,
+        answer: `Upon reaching a target for a reward, the customer will receive a claim voucher for the reward on WhatsApp. The customer presents this reward voucher to a campaign manager. The campaign manager will scan the code to verify and confirm. Once verified, the reward can be issued to the customer.`,
     },
     {
-        question: `Why do you never see elephants hiding in trees?`,
-        answer: `Because they're so good at it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.`,
+        question: `Can I run a promotion instead of a loyalty program?`,
+        answer: `Yes, Royals can be used to run promotions as well.`,
+    },
+    {
+        question: `Do you offer assistance to run a promotion or loyalty program?`,
+        answer: `Yes, we can help. Contact us to discuss in detail.`,
+    },
+    {
+        question: `Do you offer assistance to run a promotion or loyalty program?`,
+        answer: `Yes, we can help. Contact us to discuss in detail.`,
+    },
+    {
+        question: `What do I need in order to run a campaign?`,
+        answer: `All you need is a smartphone or tablet with internet access. Optional: A receipt printer with Bluetooth connectivity.`,
     },
     // More questions...
 ];
@@ -41,14 +53,14 @@ export default function IndexPage() {
                         acquiring new customers efficiently when shoppers refer
                         their friends to your brand.
                     </p>
-                    <div className='mt-10 flex items-center gap-x-6'>
+                    <div className='mt-8 flex items-center gap-x-6'>
                         <Button
                             href='/register'
                             rightSlot={
                                 <GoChevronRight className='size-4 text-icon-default' />
                             }
                             size='md'
-                            className='bg-black text-white hocus:bg-black/90'
+                            className='rounded-full bg-black text-white hocus:bg-black/90'
                         >
                             Get Started for Free
                         </Button>

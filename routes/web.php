@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\CampaignController;
+use App\Http\Controllers\Customer\CollaboratorController;
 use App\Http\Controllers\Customer\RewardController;
 use App\Http\Controllers\Customer\VoucherController;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,12 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('ma');
     })->name('ma');
 
-    Route::middleware('role:owner|issuer')->group(function () {
+    Route::middleware('role:owner')->group(function () {
+        Route::post('/collaborators', [CollaboratorController::class, 'invite'])->name('collaborator.store');
+    });
 
+    Route::middleware('role:owner|issuer')->group(function () {
+        Route::get('/admin/collaborators', [CollaboratorController::class, 'index']);
         Route::get('/admin', [CampaignController::class, 'index'])->name('admin');
         Route::post('/campaigns', [CampaignController::class, 'store'])->name('campaigns.store');
         Route::get('/admin/{campaign}', [CampaignController::class, 'show'])->name('campaigns.show');
