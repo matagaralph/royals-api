@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enums\UserRole;
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Enums\UserRole;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use App\Models\CollaboratorInvitation;
+use Illuminate\Validation\ValidationException;
 
 class RegisteredUserController extends Controller {
     /**
@@ -27,18 +29,39 @@ class RegisteredUserController extends Controller {
      */
     public function store(Request $request): RedirectResponse {
         $request->validate([
-            'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required',  Rules\Password::defaults()],
+            'token' => 'nullable|string'
         ]);
 
-        $user =  User::create([
+        $invitation = null;
+
+        if ($request->filled('token')) {
+            $invitation = CollaboratorInvitation::where('token', $request->token)
+                ->where('email', $request->email)
+                ->whereNull('accepted_at')
+                ->first();
+
+            if (!$invitation) {
+                throw ValidationException::withMessages([
+                    'token' => ['Invalid or expired invitation.'],
+                ]);
+            }
+        }
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'company_id' => $invitation?->company_id,
         ]);
 
-        $user->assignRole(UserRole::Shopper);
+        if ($invitation) {
+            $user->assignRole(UserRole::Issuer);
+            $invitation->markAsAccepted();
+        } else {
+            $user->assignRole(UserRole::Shopper);
+        }
 
         return redirect()->intended(route('login', absolute: false));
     }

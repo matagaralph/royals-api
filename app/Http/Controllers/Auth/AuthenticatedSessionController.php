@@ -37,6 +37,7 @@ class AuthenticatedSessionController extends Controller {
 
         $role = $request->user()->getRoleNames()->first();
 
+
         return redirect()->intended(route($role === UserRole::Issuer || UserRole::Owner ? 'admin' : 'ma', absolute: false));
     }
 

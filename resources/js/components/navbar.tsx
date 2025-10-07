@@ -55,9 +55,9 @@ export default function NavBar() {
                                     className='divide-y divide-slate-200 rounded-xl border border-default bg-white text-sm/6 shadow-lg transition duration-200 ease-in-out [--anchor-gap:--spacing(5)] data-closed:-translate-y-1 data-closed:opacity-0'
                                 >
                                     <div className='p-3'>
-                                        <a
+                                        <Link
                                             className='block rounded-lg px-3 py-2 transition hover:bg-hover'
-                                            href='#'
+                                            href='/admin/vouchers/create'
                                         >
                                             <p className='font-semibold text-default'>
                                                 Issue Vouchers
@@ -66,10 +66,10 @@ export default function NavBar() {
                                                 Generate and distribute points
                                                 vouchers.
                                             </p>
-                                        </a>
-                                        <a
+                                        </Link>
+                                        <Link
                                             className='block rounded-lg px-3 py-2 transition hover:bg-hover'
-                                            href='#'
+                                            href='/admin'
                                         >
                                             <p className='font-semibold text-default'>
                                                 Campaigns
@@ -78,19 +78,19 @@ export default function NavBar() {
                                                 Create and manage loyalty
                                                 campaigns.
                                             </p>
-                                        </a>
-                                        <a
+                                        </Link>
+                                        <Link
                                             className='block rounded-lg px-3 py-2 transition hover:bg-hover'
-                                            href='#'
+                                            href='/admin/vouchers/verify'
                                         >
                                             <p className='font-semibold text-default'>
-                                                Analytics
+                                                Verify Claim
                                             </p>
                                             <p className='text-secondary'>
-                                                Track performance and customer
-                                                insights.
+                                                Verify claims and reward
+                                                customers
                                             </p>
-                                        </a>
+                                        </Link>
                                     </div>
                                     <div className='p-3'>
                                         <a

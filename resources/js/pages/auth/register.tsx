@@ -5,6 +5,10 @@ import { Form, Link } from '@inertiajs/react';
 import { GoChevronRight } from 'react-icons/go';
 
 export default function Register() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const emailFromUrl = urlParams.get('email') || '';
+    const tokenFromUrl = urlParams.get('token') || '';
+
     return (
         <div className='relative flex min-h-screen flex-col items-center justify-center bg-white'>
             <div className='flex w-full max-w-[512px] flex-col gap-12 px-6'>
@@ -40,10 +44,20 @@ export default function Register() {
                                                 type='email'
                                                 autoComplete='email'
                                                 placeholder='example@company.com'
+                                                defaultValue={emailFromUrl}
+                                                readOnly={!!emailFromUrl}
                                                 required
                                             />
                                         </div>
                                     </div>
+
+                                    {tokenFromUrl && (
+                                        <input
+                                            type='hidden'
+                                            name='token'
+                                            value={tokenFromUrl}
+                                        />
+                                    )}
 
                                     <div>
                                         <label

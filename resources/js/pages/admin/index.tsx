@@ -26,7 +26,11 @@ export default function AdminIndexPage() {
                         Manage and track all your campaigns in one place
                     </p>
                 </div>
-                <NewCampaign />
+                {campaigns.length !== 0 && (
+                    <div className='max-w-xs sm:max-w-none'>
+                        <NewCampaign />
+                    </div>
+                )}
             </div>
             {campaigns.length !== 0 ? (
                 <Table>
@@ -37,11 +41,13 @@ export default function AdminIndexPage() {
                             <Table.HeaderCell>
                                 Points per Voucher
                             </Table.HeaderCell>
-                            <Table.HeaderCell>
+                            <Table.HeaderCell align='justify'>
                                 Amount for Point
                             </Table.HeaderCell>
                             <Table.HeaderCell>Duration</Table.HeaderCell>
-                            <Table.HeaderCell>End Date</Table.HeaderCell>
+                            <Table.HeaderCell align='right'>
+                                End Date
+                            </Table.HeaderCell>
                         </Table.Row>
                     </Table.Head>
                     <tbody>

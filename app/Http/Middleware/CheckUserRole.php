@@ -18,6 +18,7 @@ class CheckUserRole {
         $allowedRoles = collect(explode('|', $roles));
         $userRole = Auth::user()->getRoleNames()->first();
 
+
         if (!$allowedRoles->contains($userRole)) {
             return Inertia::render('errors/forbidden');
         }

@@ -25,7 +25,7 @@ export default function CampaignPage() {
             users_participating: number;
         };
     }>().props;
-    console.log(campaign);
+
     return (
         <AppLayout>
             <div className='max-lg:hidden'>

@@ -90,14 +90,11 @@ class VoucherController extends Controller {
         $claimVoucher = ClaimVoucher::with('reward.campaign')->where('code', $request->voucher_code)->first();
 
         if ($claimVoucher->is_used) {
-            return response()->json(['message' => 'This reward voucher has already been claimed.'], 400);
+            return back()->withErrors([
+                'voucher_code' => 'This voucher has already been used.',
+            ]);
         }
 
-        $claimVoucher->reward->campaign;
-
-        return response()->json([
-            'message' => 'Reward voucher verified successfully.',
-            'claimed_voucher' => $claimVoucher,
-        ]);
+        return back()->with(['success' => 'Voucher verified successfully.',]);
     }
 }

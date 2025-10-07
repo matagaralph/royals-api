@@ -194,14 +194,14 @@ export default function IndexPage() {
                 </section>
             </div>
             <div className='bg-white'>
-                <div className='mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:px-8 lg:py-36'>
+                <div className='mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8 lg:py-24'>
                     <div className='lg:grid lg:grid-cols-12 lg:gap-8'>
                         <div className='lg:col-span-5'>
                             <h2 className='font-heading text-2xl leading-10 font-bold tracking-tight text-default'>
                                 Frequently asked questions
                             </h2>
                             <p className='mt-4 text-base leading-7 text-gray-600'>
-                                Can’t find the answer you’re looking for? Reach
+                                Can't find the answer you're looking for? Reach
                                 out to our{' '}
                                 <Link
                                     href='/contact'
