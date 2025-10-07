@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 class BotController extends Controller {
     public function register(Request $request) {
         $request->validate([
-            'phone' => ['required', 'string', 'size:13'],
+            'phone' => ['required', 'string'],
             'name' => ['required', 'string']
         ]);
         $user = User::where('phone', $request->phone)->first();
@@ -34,12 +34,12 @@ class BotController extends Controller {
     public function addPoints(Request $request) {
         $request->validate([
             'voucher_code' => ['required', 'string', 'size:12'],
-            'phone' => ['required', 'string', 'size:13'],
+            'phone' => ['required', 'string'],
         ]);
         $user = User::where('phone', $request->phone)->first();
         if (!$user) return response()->json(['status' => -3, 'message' => 'Invalid phone number provided.']);
 
-        $voucher = Voucher::where('code', $request->voucher_code)->firstOrFail();
+        $voucher = Voucher::where('code', strtoupper($request->voucher_code))->firstOrFail();
         if ($voucher->scanned_at !== null) return response()->json(['status' => 0, 'message' => 'This voucher has already been scanned.'], 400);
 
         if ($voucher->campaign->status !== CampaignStatus::Active) {
@@ -68,7 +68,7 @@ class BotController extends Controller {
 
         $request->validate([
             'reward_id' => ['required', "exists:rewards,id"],
-            'phone' => ['required', 'string', 'size:13'],
+            'phone' => ['required', 'string'],
         ]);
 
         $user = User::where('phone', $request->phone)->first();
@@ -114,7 +114,7 @@ class BotController extends Controller {
     public function myAccount(Request $request) {
 
         $request->validate([
-            'phone' => ['required', 'string', 'size:13'],
+            'phone' => ['required', 'string'],
         ]);
 
         $user = User::where('phone', $request->phone)->first();
