@@ -21,13 +21,14 @@ class BotController extends Controller {
         ]);
         $user = User::where('phone', $request->phone)->first();
         if ($user) return response()->json(['status' => 0, 'message' => 'Phone Number is already used, please try a different one.']);
+
         $newUser = User::create([
             'phone' => $request->phone,
             'name' => $request->name ?? null,
             'password' => bcrypt($request->password ?? '0000'),
             'company_id' => null,
         ]);
-        return response()->json(['status' => 1, 'message' => 'Registration successful.', 'data' => $user]);
+        return response()->json(['status' => 1, 'message' => 'Registration successful.', 'data' => $newUser]);
     }
 
     public function addPoints(Request $request) {
@@ -35,7 +36,7 @@ class BotController extends Controller {
             'voucher_code' => ['required', 'string', 'size:12'],
             'phone' => ['required', 'string', 'size:13'],
         ]);
-        $user = User::where('phone', $request->phone);
+        $user = User::where('phone', $request->phone)->first();
         if (!$user) return response()->json(['status' => -3, 'message' => 'Invalid phone number provided.']);
 
         $voucher = Voucher::where('code', $request->voucher_code)->firstOrFail();
@@ -70,7 +71,7 @@ class BotController extends Controller {
             'phone' => ['required', 'string', 'size:13'],
         ]);
 
-        $user = User::where('phone', $request->phone);
+        $user = User::where('phone', $request->phone)->first();
         if (!$user) return response()->json(['status' => -3, 'message' => 'Invalid phone number provided.']);
 
         $reward = Reward::with('campaign')->findOrFail($request->reward_id);
@@ -116,7 +117,7 @@ class BotController extends Controller {
             'phone' => ['required', 'string', 'size:13'],
         ]);
 
-        $user = User::where('phone', $request->phone);
+        $user = User::where('phone', $request->phone)->first();
         if (!$user) return response()->json(['status' => -3, 'message' => 'Invalid phone number provided.']);
 
         $shopperPoints = $user->shopperPoints()->with('campaign')->get();

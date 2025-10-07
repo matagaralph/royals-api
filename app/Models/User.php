@@ -53,4 +53,7 @@ class User extends Authenticatable {
     public function company(): BelongsTo {
         return $this->belongsTo(Company::class);
     }
+    public function shopperPoints() {
+        return $this->hasMany(ShopperPoint::class, 'user_id', 'id');
+    }
 }
