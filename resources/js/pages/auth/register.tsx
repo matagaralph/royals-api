@@ -83,7 +83,30 @@ export default function Register() {
                                             </InlineMessage>
                                         )}
                                     </div>
+                                    <div>
+                                        <label
+                                            htmlFor='password'
+                                            className='block text-sm leading-6 font-medium text-default'
+                                        >
+                                            Confirm Password
+                                        </label>
 
+                                        <div className='mt-2'>
+                                            <Input
+                                                id='password_confirmation'
+                                                name='password_confirmation'
+                                                type='password'
+                                                autoComplete='current-password'
+                                                placeholder='Confirm Password'
+                                                required
+                                            />
+                                        </div>
+                                        {Object.keys(errors).length > 0 && (
+                                            <InlineMessage variant='critical'>
+                                                {Object.values(errors)[0]}
+                                            </InlineMessage>
+                                        )}
+                                    </div>
                                     <div>
                                         <Button
                                             rightSlot={

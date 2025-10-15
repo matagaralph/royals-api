@@ -6,7 +6,6 @@ import { HiChevronRight, HiDotsVertical, HiGift } from 'react-icons/hi';
 export default function ShopperPage() {
     const [points, setPoints] = useState(250);
     const { auth } = usePage<SharedData>().props;
-    console.log(auth);
     const rewards = [
         {
             id: 1,
